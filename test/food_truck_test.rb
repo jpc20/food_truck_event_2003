@@ -11,6 +11,10 @@ class FoodTruckTest < Minitest::Test
     @item2 = Item.new({name: 'Apple Pie (Slice)', price: '$2.50'})
   end
 
+  def test_it_exists
+    assert_instance_of FoodTruck, @food_truck
+  end
+
   def test_it_has_a_name
     assert_equal "Rocky Mountain Pies", @food_truck.name
   end
