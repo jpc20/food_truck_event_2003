@@ -47,4 +47,18 @@ class Event
     Date.today.strftime("%d/%m/%Y")
   end
 
+  def sell(item, quantity)
+    item_quantity = quantity
+    return false if food_trucks_that_sell(item).empty?
+    return false if total_inventory[item][:quantity] <= quantity
+    until item_quantity <= 0
+      food_truck = food_trucks.find do |food_truck|
+        food_truck.check_stock(item) > 0
+      end
+      item_quantity -= food_truck.check_stock(item)
+      food_truck.inventory[item] -= item_quantity
+    end
+    return true
+  end
+
 end

@@ -1,6 +1,7 @@
 require 'date'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require './lib/event'
 require './lib/food_truck'
 require './lib/item'
@@ -134,7 +135,10 @@ class EventTest < Minitest::Test
   end
 
   def test_date
-    assert_instance_of Date, @event.date
+    assert_equal 10, @event.date.length
+    assert_instance_of String, @event.date
+    @event.stubs(:date).returns("24/02/2020")
+    assert_equal "24/02/2020", @event.date
   end
 
   def test_sell
@@ -151,7 +155,7 @@ class EventTest < Minitest::Test
     assert_equal false, @event.sell(@item5, 1)
     assert_equal true, @event.sell(@item4, 5)
 
-    assert_equal 45, @food_truck2.check_stock(item4)
+    assert_equal 45, @food_truck2.check_stock(@item4)
 
     assert_equal true, @event.sell(@item1, 40)
     assert_equal 0, @food_truck1.check_stock(@item1)
