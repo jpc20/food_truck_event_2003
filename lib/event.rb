@@ -43,4 +43,8 @@ class Event
     total_inventory.keys.map { |item| item.name }.sort
   end
 
+  def date
+    Date.today.strftime("%d/%m/%Y")
+  end
+
 end
